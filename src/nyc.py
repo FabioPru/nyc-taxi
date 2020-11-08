@@ -44,3 +44,10 @@ def raw_csv_to_queries(path):
     df_f = df_nona[(df_nona['PULocationID'].apply(lambda n: n in nyc_zones_to_vertices)) &
                (df_nona['DOLocationID'].apply(lambda n: n in nyc_zones_to_vertices))]
     return df_f.reset_index().drop(columns=['index'])
+
+#dfl = pd.read_csv('data/yellow_tripdata_2020-01.csv')
+#dfl.head(100000).to_csv('data/yellow_tripdata_2020-01-small.csv')
+#df = raw_csv_to_queries('data/yellow_tripdata_2020-01.csv')
+#df.to_csv('data/nyc-queries.csv')
+#df.head(100000).to_csv('data/nyc-queries-small.csv')
+
