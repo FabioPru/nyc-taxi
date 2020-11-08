@@ -12,8 +12,14 @@ class Policy():
 policy_random = Policy(lambda s: random.randint(0, s.K - 1))
 
 # Return the earliest available taxi driver
-#  If tied, choose lowest index
-policy_earliest_free = Policy(lambda s: s.d.index(min(s.d)))
+#  If tied, choose at random
+def random_lowest(s):
+    min_wait = min(s.d)
+    indices = [i for i in range(s.K) if s.d[i] == min_wait]
+    return random.choice(indices)
+policy_earliest_free = Policy(random_lowest)
+# Earlier version: returns smallest index
+#policy_earliest_free = Policy(lambda s: s.d.index(min(s.d)))
 
 # Greedy policy: return action with lowest cost
 def policy_greedy(mdp):
