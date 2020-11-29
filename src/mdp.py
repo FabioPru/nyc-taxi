@@ -23,12 +23,25 @@ class State(tuple):
 
         self.K = len(self.d)
 
+        self.weights = np.array([1.0 / float(n) for n in range(1, self.K + 1)])
+
         return super().__init__()
 
     def __repr__(self):
         return "State(\nPOSITIONS: "+str(self.p)+"\nDELAYS:    "+\
                 str(self.d)+"\nQUERY: "+str(self.q)+"\n)"
 
+    def to_array(self, mdp):
+        '''Returns an N-shaped np.array'''
+        N = mdp.N
+        a = np.zeros(N)
+
+        for v in range(N):
+            # We sum 1/n times the reaching time for every vertex in the graph
+            distances = [self.DELAYS[k] + mdp.G.d[v, self.POSITIONS[k]]
+                         for k in range(self.K)]
+            a[v] = np.dot(self.weights, np.array(sorted(distances)))
+        return a
 
 class MarkowDP():
 

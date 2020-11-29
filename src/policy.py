@@ -23,7 +23,6 @@ policy_earliest_free = Policy(random_lowest)
 
 # Greedy policy: return action with lowest cost
 def policy_greedy(mdp):
-
     def C(state, action):
         return state.d[action] + mdp.G.d[state.q_start, state.p[action]]
     def fn(s):
